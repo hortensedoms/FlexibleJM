@@ -34,19 +34,46 @@ This ordering is assumed internally when constructing the survival design matric
 library(survival)
 library(nlme)
 
+#------------------ Two flexible effects --------------------------------------
+
 # Survival submodel
-survObject <- coxph(Surv(eventtime, status) ~ Wf1 + Wf2 + W1 + W2, data = data_event,x = TRUE)
+survObject <- coxph(Surv(eventtime, status) ~ Wf1 + Wf2 + W1 + W2, data = data_event, x = TRUE)
 
 # Longitudinal submodel
-lmeObject <- lme(Yij_1 ~ tij + X1 + X2, random = ~ tij | id,data = data_long)
+lmeObject <- lme(Yij_1 ~ tij + X1 + X2,random = ~ tij | id,data = data_long)
 
 # Joint model with flexible effects
 jmFit <- jm(
   Surv_object = survObject,
   Mixed_objects = lmeObject,
   time_var = "tij",
-  nterm1 = 8,   # number of spline coefficients for first flexible covariate Wf1
-  nterm2 = 8,   # number of spline coefficients for second flexible covariate Wf2
+  nterm1 = 8,   # spline coefficients for first flexible covariate (Wf1)
+  nterm2 = 8,   # spline coefficients for second flexible covariate (Wf2)
+  short.output = TRUE,
+  control = list(
+    n_chains = 1,
+    n_iter = 10500,
+    n_burnin = 500,
+    base_hazard_segments = 4,
+    seed = 1
+  )
+)
+
+#------------------ Only one flexible effect ----------------------------------
+
+# Survival submodel
+survObject <- coxph(Surv(eventtime, status) ~ Wf1 + W1 + W2, data = data_event, x = TRUE)
+
+# Longitudinal submodel
+lmeObject <- lme(Yij_1 ~ tij + X1 + X2,random = ~ tij | id,data = data_long)
+
+# Joint model with flexible effect
+jmFit <- jm(
+  Surv_object = survObject,
+  Mixed_objects = lmeObject,
+  time_var = "tij",
+  nterm1 = 8,   # spline coefficients for first flexible covariate (Wf1)
+  nterm2 = 0,   # set to 0 to remove the second flexible effect
   short.output = TRUE,
   control = list(
     n_chains = 1,
