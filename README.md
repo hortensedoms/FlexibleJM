@@ -24,7 +24,6 @@ provided in the **exact order**:
 
 Flexible covariates must appear before linear covariates and be placed consecutively.
 This ordering is assumed internally when constructing the survival design matrices.
----
 
 ## Example usage
 
