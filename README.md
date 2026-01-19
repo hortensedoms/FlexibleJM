@@ -47,7 +47,7 @@ jmFit <- jm(
   short.output = TRUE,
   control = list(
     n_chains = 1,
-    n_iter = 20500,
+    n_iter = 10500,
     n_burnin = 500,
     base_hazard_segments = 4,
     seed = 1
