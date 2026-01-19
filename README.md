@@ -9,7 +9,7 @@ The FlexibleJM approach is a **light modification of the R package JMBayes2**
 designed to allow **flexible (non-linear) effects of baseline covariates in the survival submodel**
 of joint models for longitudinal and time-to-event data.
 
-The archive `FlexibleJM_0.1.tar.gz` is provided for convenience.
+The archive `JMbayes2_0.4-5_Flexible.tar.gz` is provided for convenience.
 It contains the research code used in the associated article.
 This is not yet a formal R package.
 
