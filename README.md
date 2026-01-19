@@ -5,21 +5,26 @@ This repository contains the code associated with the article:
 > *Flexible joint model for time-to-event and non-Gaussian longitudinal outcomes*.  
 > Statistical Methods in Medical Research.
 
-FlexibleJM approach is a **light modification of the R package JMBayes2**
-to allow **flexible (non-linear) effects of baseline covariates in the survival submodel**
+The FlexibleJM approach is a **light modification of the R package JMBayes2**
+designed to allow **flexible (non-linear) effects of baseline covariates in the survival submodel**
 of joint models for longitudinal and time-to-event data.
+
+---
+
+## Data requirements for the survival model
 
 The survival dataset (`data_event`) must contain **at least** the following variables,
 provided in the **exact order**:
 
 1. subject identifier (`id`),
 2. flexible baseline covariates (if any),
-3. linear baseline covariates.
+3. linear baseline covariates,
+4. event time,
+3. event indicator.
 
 Flexible covariates must appear before linear covariates and be placed consecutively.
-
+This ordering is assumed internally when constructing the survival design matrices.
 ---
-
 
 ## Example usage
 
@@ -28,10 +33,10 @@ library(survival)
 library(nlme)
 
 # Survival submodel
-survObject <- coxph(Surv(eventtime, status) ~ Wf1 + Wf2 + W1 + W2,data = data_event,x = TRUE)
+survObject <- coxph(Surv(eventtime, status) ~ Wf1 + Wf2 + W1 + W2, data = data_event,x = TRUE)
 
 # Longitudinal submodel
-lmeObject <- lme(Yij_1 ~ tij + X1 + X2,random = ~ tij | id,data = data_long)
+lmeObject <- lme(Yij_1 ~ tij + X1 + X2, random = ~ tij | id,data = data_long)
 
 # Joint model with flexible effects
 jmFit <- jm(
