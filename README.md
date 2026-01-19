@@ -12,7 +12,7 @@ of joint models for longitudinal and time-to-event data.
 The archive `FlexibleJM_0.1.tar.gz` is provided for convenience.
 It contains the research code used in the associated article.
 This is not yet a formal R package.
----
+
 
 ## Data requirements for the survival model
 
