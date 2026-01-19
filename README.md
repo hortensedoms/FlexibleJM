@@ -20,7 +20,7 @@ provided in the **exact order**:
 2. flexible baseline covariates (if any),
 3. linear baseline covariates,
 4. event time,
-3. event indicator.
+5. event indicator.
 
 Flexible covariates must appear before linear covariates and be placed consecutively.
 This ordering is assumed internally when constructing the survival design matrices.
