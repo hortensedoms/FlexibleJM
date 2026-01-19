@@ -53,3 +53,13 @@ jmFit <- jm(
     seed = 1
   )
 )
+```
+## Acknowledgements
+
+This work is based on the R package **JMbayes2**, developed by Dimitris Rizopoulos
+and collaborators:
+
+https://github.com/drizopoulos/JMbayes2
+
+All credit for the original implementation goes to the authors of JMBayes2.
+This repository only presents an extension for research purposes.
